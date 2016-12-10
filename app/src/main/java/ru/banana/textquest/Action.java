@@ -1,7 +1,9 @@
 package ru.banana.textquest;
 
 
-public class Action {
+import java.io.Serializable;
+
+public class Action implements Serializable{
     String описание;
 
     public Action(String описание) {

@@ -1,10 +1,9 @@
 package ru.banana.textquest;
 
-/**
- * Created by User on 12/3/2016.
- */
 
-public class Scene {
+import java.io.Serializable;
+
+public class Scene implements Serializable {
 
     String description;
     Action[] actions;
