@@ -37,8 +37,9 @@ public class FirstSceneActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Action mobaction = startScene.actions[position];
-                Intent intent = new Intent(FirstSceneActivity.this, Action.class);
+                Intent intent = new Intent(FirstSceneActivity.this, Second_ScheneActivity.class);
                 intent.putExtra("КВЕСТ", mobaction);
+                startActivity(intent);
             }
         });
 

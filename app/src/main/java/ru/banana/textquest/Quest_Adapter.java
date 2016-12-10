@@ -3,6 +3,7 @@ package ru.banana.textquest;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +35,9 @@ public class Quest_Adapter extends ArrayAdapter {
         TextView textView = (TextView) view.findViewById (R.id.textovoe_pole);
                 textView.setText(action.описание);
 
+
         ImageView imageView = (ImageView) view.findViewById (R.id.imageView);
-        Picasso.with(getContext()).load("http://www.alliphonewallpapers.com/images/wallpapers/640/ovqg47oih.jpg").fit().into(imageView);
-
-
+        Picasso.with(getContext()).load("http://icons.iconarchive.com/icons/icons8/ios7/256/Household-Shovel-icon.png").fit().into(imageView);
 
         return view;
     }
