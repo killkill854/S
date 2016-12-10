@@ -22,5 +22,6 @@
         android:layout_height="32dp"
         android:id="@+id/imageView"
         android:layout_width="32dp"
-        android:background="@color/colorAccent" />
+        android:background="?android:attr/colorFocusedHighlight"
+        android:elevation="1dp" />
 </LinearLayout>
