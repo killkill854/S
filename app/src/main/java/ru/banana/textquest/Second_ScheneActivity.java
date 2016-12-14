@@ -1,7 +1,10 @@
 package ru.banana.textquest;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +36,11 @@ public class Second_ScheneActivity extends AppCompatActivity {
         } else {
             // TODO
         }
+
+        public void onClick(View){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+
+    }
     }
 
 }
