@@ -1,14 +1,14 @@
 package ru.banana.textquest;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import java.util.ArrayList;
 
 
 public class FirstSceneActivity extends AppCompatActivity {
@@ -16,58 +16,95 @@ public class FirstSceneActivity extends AppCompatActivity {
     Scene startScene;
     ListView listView;
     Button button;
-    public Button button1 = (Button) findViewById(R.id.button3);
-    public Button button2 = (Button) findViewById(R.id.button4);
+    public Button button1;
+    public Button button2;
+    ArrayAdapter adapter;
+
+    String location = "Улица";
+    boolean осмотрелсяЛиНаУлице = false;
+    boolean попробовалВзятьКошку = false;
+    boolean попробовалВзобратьсяНаЧердак = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_quest);
 
-        Action[] startSceneActions = new Action[3];
-        startSceneActions[0] = new Action("Стоять около дома.");
-        startSceneActions[1] = new Action("Зайти в дом.");
-        startSceneActions[2] = new Action("Осмотреться.");
-        startScene = new Scene("Дом. Ночь. Фонарь.Я стою на улице возле страшного дома.Меня окутывает страх, но я не могу отступить.", startSceneActions);
-
-
-
-        final ListView listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
+        button1 = (Button) findViewById(R.id.button3);
+        button2 = (Button) findViewById(R.id.button4);
         final int itemLayout = android.R.layout.simple_list_item_1;
-        Quest_Adapter adapter = new Quest_Adapter(this, itemLayout, startScene.actions);
+        adapter = new ArrayAdapter<String>(this, itemLayout, new ArrayList<String>());
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Scene перваяСцена = createScene();
+        перейтиКСцене(перваяСцена);
+    }
+
+    public void перейтиКСцене(final Scene scene) {
+        // dobavit description
+        adapter.add(scene.description);
+
+        // pereimenovat knopki
+        button1.setText(scene.action1);
+        button2.setText(scene.action2);
+
+        // veshaem obrabot4iki nagatiia
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Action mobaction = startScene.actions[position];
-                if (mobaction.описание.equals("Зайти в дом.")) {
-                    Action[] startSceneActions = new Action[1];
-                    startSceneActions[0] = new Action("Осмотреть дом.");
-                    Scene scene = new Scene("Дом. Ночь. Фонарь.Я стою на улице возле страшного дома.Меня окутывает страх, но я не могу отступить.", startSceneActions);
-
-
-                    Quest_Adapter adapter = new Quest_Adapter(FirstSceneActivity.this, itemLayout, scene.actions);
-                    listView.setAdapter(adapter);
-                } else {
-
-                }
+            public void onClick(View v) {
+                doAction(scene.action1);
             }
         });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction(scene.action2);
+            }
+        });
+    }
 
-        getSupportActionBar().setTitle("Привеик");
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.);
+    Scene createScene() {
+        if (location.equals("Улица")) {
+            Scene scene = new Scene("Дом. Улица. Фонарь.", "Зайти в дом", "Осмотреться");
+            if (осмотрелсяЛиНаУлице) {
+                scene.description = "Дом. Улица. Фонарь.Иии.... Я нашёл крюк-кошку! Думаю она мне поможет. Как думаешь?";
+                scene.action1 = "Да.Оставь";
+                scene.action2 = "Нет.Положи откуда взял!";
+            }
+            if (попробовалВзятьКошку) {
+                scene.description = "Я же смогу пробраться наверх, к чердаку!";
+                scene.action1 = "Я сказал 'НЕТ!'";
+                scene.action2 = "Ладно возьми";
+            }
+            if (попробовалВзобратьсяНаЧердак) {
+                scene.description = "Ура! Я на чердаке";
+                scene.action1 = "Что там?";
+                scene.action2 = "Это конец?";
 
+                return scene;
+            }
+        }
 
-
-
-
-
-
-
+        return new Scene("", "", "");
     }
 
 
+    public void doAction(String action) {
+        if (location.equals("Улица")) {
+            if (action.equals("Зайти в дом")) {
+                location = "Дом";
+            } else if (action.equals("Осмотреться")) {
+                осмотрелсяЛиНаУлице = true;
+            } else if (action.equals("Да.Оставь")) {
+                попробовалВзятьКошку = true;
+            } else if (action.equals("Ладно возьми")) {
+                попробовалВзобратьсяНаЧердак = true;
+            }
+        }
 
-
+        Scene новаяСцена = createScene();
+        перейтиКСцене(новаяСцена);
+    }
 
 }

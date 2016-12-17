@@ -21,7 +21,6 @@
 
 
         </activity>
-        <activity android:name=".Second_ScheneActivity"></activity>
     </application>
 
 </manifest>

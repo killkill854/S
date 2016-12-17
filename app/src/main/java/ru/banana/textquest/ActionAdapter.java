@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class Quest_Adapter extends ArrayAdapter {
+public class ActionAdapter extends ArrayAdapter {
 
-    public Quest_Adapter(Context context, int resource, Object[] objects) {
+    public ActionAdapter(Context context, int resource, Object[] objects) {
         super(context, resource, objects);
-
     }
 
     @Override
