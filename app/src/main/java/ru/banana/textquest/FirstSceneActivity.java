@@ -1,7 +1,11 @@
 package ru.banana.textquest;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,17 +28,40 @@ public class FirstSceneActivity extends AppCompatActivity {
     boolean осмотрелсяЛиНаУлице = false;
     boolean попробовалВзятьКошку = false;
     boolean попробовалВзобратьсяНаЧердак = false;
-    boolean наЧердаке = false;
     boolean зашёлВДом = false;
     boolean увиделСтраннуюФигуру = false ;
     boolean сваливаем = false;
     boolean рассказОФантоме = false;
-    boolean подробныйРассказОФантоме = true;
+    boolean подробныйРассказОФантоме = false;
     boolean глубокомысленныйРазговорОФантоме = false;
     boolean чтоТоУслышал = false;
+    boolean долгоеНахождениеВПараднойДома = false;
+    boolean забралсяНаЧердак = false;
 
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // создаём меню
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about_item:
+                // сортируем массив
+                Intent intent = new Intent(FirstSceneActivity.this, AboutActiviti.class);
+                startActivity(intent);
+
+                return true;
+            default:
+                return true;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +102,8 @@ public class FirstSceneActivity extends AppCompatActivity {
     }
 
     Scene createScene() {
+        Scene scene = new Scene("Дом. Улица. Фонарь.", "Зайти в дом", "Осмотреться");
         if (location.equals("Улица")) {
-            Scene scene = new Scene("Дом. Улица. Фонарь.", "Зайти в дом", "Осмотреться");
             if (осмотрелсяЛиНаУлице) {
                 scene.description = "Дом. Улица. Фонарь.Иии.... Я нашёл крюк-кошку! Думаю она мне поможет. Как думаешь?";
                 scene.action1 = "Да.Оставь";
@@ -91,15 +118,12 @@ public class FirstSceneActivity extends AppCompatActivity {
                 scene.description = "Ура! Я на чердаке";
                 scene.action1 = "Что там?";
                 scene.action2 = "Это конец?";
-
-
             }
-            if (наЧердаке) {
-                scene.description = "Наверное, но давай попробуем более сложный путь а?";
-                scene.action1 = "Щя ток перезапущу";
-                scene.action2 = "Мне и так норм";
-
-            }
+        } else if (location.equals("Чердак")) {
+            scene.description = "Наверное, но давай попробуем более сложный путь а?";
+            scene.action1 = "Щя ток перезапущу";
+            scene.action2 = "Мне и так норм";
+        } else if (location.equals("Дом")) {
             if (зашёлВДом) {
                 scene.description = "Я внутри. Здесь очень мрачно. Иии... О боже!";
                 scene.action1 = "Что там?";
@@ -114,7 +138,8 @@ public class FirstSceneActivity extends AppCompatActivity {
                 scene.description = "Вы так и не узнали что находилось на чердке. Вы не справились с заданием полученным в Миннистерсве. Вас деактивируют через трое суток.На данный момент вы числитесь среди гловарей бандитов. И вы так и неузнали имени главного персонажа.";
                 scene.action1 = "Переиграть!";
                 scene.action2 = "Ок";
-            }if (рассказОФантоме){
+            }
+            if (рассказОФантоме){
                 scene.description = "Это.... это было как тень. Я очень хочу что бы мне это показалось. Ладно. ОНО было как тень, но я чётко разглядел его, а точнее её очертания";
                 scene.action1 = "В смысле, Фантом что девушка?";
                 scene.action2 = "Чем дальше в лес тем больше дров! Хватит разглагольсвовать идём дальше!";
@@ -128,16 +153,9 @@ public class FirstSceneActivity extends AppCompatActivity {
                 scene.description = "СТОП! Как ты увидел синий?";
                 scene.description = "Ладно у тебя там всё в порядке?";
             }
+        }
 
-
-
-            return scene;
-            }
-
-
-
-
-        return new Scene("", "", "");
+        return scene;
     }
 
 
@@ -146,17 +164,19 @@ public class FirstSceneActivity extends AppCompatActivity {
             if (action.equals("Зайти в дом")) {
                 location = "Дом";
                 зашёлВДом = true;
-            } else if (action.equals("Осмотреться")) {
+            }else if (action.equals("Осмотреться")) {
                 осмотрелсяЛиНаУлице = true;
             } else if (action.equals("Да.Оставь")) {
                 попробовалВзятьКошку = true;
             } else if (action.equals("Ладно возьми")) {
                 попробовалВзобратьсяНаЧердак = true;
             } else if (action.equals("Что там?")) {
-                наЧердаке = true;
-                location = "Чердак";
+                boolean забралсяНаЧердак = true;
+            }
+        } else if (location.equals("Чердак")) {
 
-            }else if (action.equals("Что там?")) {
+        } else if (location.equals("Дом")){
+            if (action.equals("Что там?")) {
                 увиделСтраннуюФигуру = true;
 
             }else  if (action.equals("Жуть какая. Давай свалим отсюда?")) {
@@ -168,15 +188,15 @@ public class FirstSceneActivity extends AppCompatActivity {
                 подробныйРассказОФантоме = true;
             }else  if (action.equals("Можешь описать е внешность?")){
                 глубокомысленныйРазговорОФантоме = true;
-                location = "долгоеНахождениеВПараднойДома";
+                boolean долгоеНахождениеВПараднойДома = true;
             }else if (action.equals("СТОП! Как ты увидел синий?")){
                 чтоТоУслышал = true;
             }
-
-
-            Scene новаяСцена = createScene();
-            перейтиКСцене(новаяСцена);
         }
 
+
+        Scene новаяСцена = createScene();
+        перейтиКСцене(новаяСцена);
     }
 }
+                                                                                                                                 
