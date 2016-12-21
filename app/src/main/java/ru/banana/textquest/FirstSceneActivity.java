@@ -24,6 +24,16 @@ public class FirstSceneActivity extends AppCompatActivity {
     boolean осмотрелсяЛиНаУлице = false;
     boolean попробовалВзятьКошку = false;
     boolean попробовалВзобратьсяНаЧердак = false;
+    boolean наЧердаке = false;
+    boolean зашёлВДом = false;
+    boolean увиделСтраннуюФигуру = false ;
+    boolean сваливаем = false;
+    boolean рассказОФантоме = false;
+    boolean подробныйРассказОФантоме = true;
+    boolean глубокомысленныйРазговорОФантоме = false;
+    boolean чтоТоУслышал = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +92,50 @@ public class FirstSceneActivity extends AppCompatActivity {
                 scene.action1 = "Что там?";
                 scene.action2 = "Это конец?";
 
-                return scene;
+
             }
-        }
+            if (наЧердаке) {
+                scene.description = "Наверное, но давай попробуем более сложный путь а?";
+                scene.action1 = "Щя ток перезапущу";
+                scene.action2 = "Мне и так норм";
+
+            }
+            if (зашёлВДом) {
+                scene.description = "Я внутри. Здесь очень мрачно. Иии... О боже!";
+                scene.action1 = "Что там?";
+                scene.action2 = "Там кто-то есть?";
+
+            }
+            if (увиделСтраннуюФигуру){
+                scene.description = "Кажется что-то промелькнуло передо мной. Как будто фантом, или нечто хуже! ";
+                scene.action1 = "Ты уверен что тебе не показалось?";
+                scene.action2 = "Жуть какая. Давай свалим отсюда?";
+            }if (сваливаем){
+                scene.description = "Вы так и не узнали что находилось на чердке. Вы не справились с заданием полученным в Миннистерсве. Вас деактивируют через трое суток.На данный момент вы числитесь среди гловарей бандитов. И вы так и неузнали имени главного персонажа.";
+                scene.action1 = "Переиграть!";
+                scene.action2 = "Ок";
+            }if (рассказОФантоме){
+                scene.description = "Это.... это было как тень. Я очень хочу что бы мне это показалось. Ладно. ОНО было как тень, но я чётко разглядел его, а точнее её очертания";
+                scene.action1 = "В смысле, Фантом что девушка?";
+                scene.action2 = "Чем дальше в лес тем больше дров! Хватит разглагольсвовать идём дальше!";
+
+            }if (подробныйРассказОФантоме){
+                scene.description = "Нууу..... НАсколько я мог увидеть, то да! Но я могу и ошибаться.";
+                scene.action1 = "Ладно, понял, пора валить.";
+                scene.action2 = "Можешь описать е внешность?";
+            }if (глубокомысленныйРазговорОФантоме) {
+                scene.description = "У неё короткие волосы,острый подбородок... короче чё я говорю! Представь Дженнифер Лоуренс в синем костюме!";
+                scene.description = "СТОП! Как ты увидел синий?";
+                scene.description = "Ладно у тебя там всё в порядке?";
+            }
+
+
+
+            return scene;
+            }
+
+
+
 
         return new Scene("", "", "");
     }
@@ -94,17 +145,38 @@ public class FirstSceneActivity extends AppCompatActivity {
         if (location.equals("Улица")) {
             if (action.equals("Зайти в дом")) {
                 location = "Дом";
+                зашёлВДом = true;
             } else if (action.equals("Осмотреться")) {
                 осмотрелсяЛиНаУлице = true;
             } else if (action.equals("Да.Оставь")) {
                 попробовалВзятьКошку = true;
             } else if (action.equals("Ладно возьми")) {
                 попробовалВзобратьсяНаЧердак = true;
+            } else if (action.equals("Что там?")) {
+                наЧердаке = true;
+                location = "Чердак";
+
+            }else if (action.equals("Что там?")) {
+                увиделСтраннуюФигуру = true;
+
+            }else  if (action.equals("Жуть какая. Давай свалим отсюда?")) {
+                location = "гдетоОченьДалеко";
+                сваливаем = true;
+            }else if (action.equals("Ты уверен что тебе не показалось?")){
+                рассказОФантоме = true;
+            }else  if (action.equals("В смысле, Фантом что девушка?")){
+                подробныйРассказОФантоме = true;
+            }else  if (action.equals("Можешь описать е внешность?")){
+                глубокомысленныйРазговорОФантоме = true;
+                location = "долгоеНахождениеВПараднойДома";
+            }else if (action.equals("СТОП! Как ты увидел синий?")){
+                чтоТоУслышал = true;
             }
+
+
+            Scene новаяСцена = createScene();
+            перейтиКСцене(новаяСцена);
         }
 
-        Scene новаяСцена = createScene();
-        перейтиКСцене(новаяСцена);
     }
-
 }
