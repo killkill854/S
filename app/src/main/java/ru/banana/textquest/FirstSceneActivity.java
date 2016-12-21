@@ -199,4 +199,3 @@ public class FirstSceneActivity extends AppCompatActivity {
         перейтиКСцене(новаяСцена);
     }
 }
-                                                                                                                                 
