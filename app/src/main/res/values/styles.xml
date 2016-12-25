@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textAppearanceListItemSmall">@style/WhiteTextAppearance</item>
     </style>
 
     <!-- Base application theme. -->
@@ -16,5 +17,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="WhiteTextAppearance" parent="TextAppearance.AppCompat.Small.Inverse">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
 </resources>
+

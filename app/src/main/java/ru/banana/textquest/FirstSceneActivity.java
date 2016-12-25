@@ -37,6 +37,10 @@ public class FirstSceneActivity extends AppCompatActivity {
     boolean чтоТоУслышал = false;
     boolean долгоеНахождениеВПараднойДома = false;
     boolean забралсяНаЧердак = false;
+    boolean описаниеЗвука = false;
+    boolean опасныйПоходВКонец = false;
+    boolean лестнрца = false;
+    boolean наЧердаке = false;
 
 
 
@@ -60,7 +64,21 @@ public class FirstSceneActivity extends AppCompatActivity {
                 return true;
             default:
                 return true;
+
+
+
+            case R.id.perezapusk_item:
+                // сортируем массив
+                intent = new Intent(FirstSceneActivity.this, FirstSceneActivity.class);
+                startActivity(intent);
+                finish();
+
+                return true;
+
+
+
         }
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +147,7 @@ public class FirstSceneActivity extends AppCompatActivity {
                 scene.action1 = "Что там?";
                 scene.action2 = "Там кто-то есть?";
 
-            }
-            if (увиделСтраннуюФигуру){
+            }if (увиделСтраннуюФигуру){
                 scene.description = "Кажется что-то промелькнуло передо мной. Как будто фантом, или нечто хуже! ";
                 scene.action1 = "Ты уверен что тебе не показалось?";
                 scene.action2 = "Жуть какая. Давай свалим отсюда?";
@@ -150,8 +167,28 @@ public class FirstSceneActivity extends AppCompatActivity {
                 scene.action2 = "Можешь описать е внешность?";
             }if (глубокомысленныйРазговорОФантоме) {
                 scene.description = "У неё короткие волосы,острый подбородок... короче чё я говорю! Представь Дженнифер Лоуренс в синем костюме!";
-                scene.description = "СТОП! Как ты увидел синий?";
-                scene.description = "Ладно у тебя там всё в порядке?";
+                scene.action1 = "СТОП! Как ты увидел синий?";
+                scene.action2 = "Ладно у тебя там всё в порядке?";
+            }if (чтоТоУслышал) {
+                scene.description = "Тихо! Я что то услышал!";
+                scene.action1 = "Что это?";
+                scene.action2 = "Фантом?";
+            }if (описаниеЗвука){
+                scene.description = "Нет, наврятли. Скорее Мышь. Во всяком случае я на это надеюсь.";
+                scene.action1 = "Я тоже надеюсь на это";
+                scene.action2 = "Ладно идём дальше";
+            }if (опасныйПоходВКонец){
+                scene.description = "Лано. Хватит разглагольствовать! Я пошёл! Здесь развитвление. Есть лестница, а есть подвал(НЕДОСТУПеН)";
+                scene.action1 = "Только лестница!";
+                scene.action2 = "(Ну выбора у тебя нет)";
+            }if (лестнрца) {
+                scene.description = "Ну ладно. Я полез! Иииии..... Отлично! Я на чердаке! И здесь.....";
+                scene.action1 = "Что,что,что???" ;
+                scene.action2 = "Да что уже. Не томи!";
+            }if (наЧердаке){
+                scene.description = ".................................. [Этап закончен!] [Досвидания]";
+                scene.action1 = "Эээээ! Куда!";
+                scene.action2 = "Ну ладно.";
             }
         }
 
@@ -191,6 +228,14 @@ public class FirstSceneActivity extends AppCompatActivity {
                 boolean долгоеНахождениеВПараднойДома = true;
             }else if (action.equals("СТОП! Как ты увидел синий?")){
                 чтоТоУслышал = true;
+            }else  if (action.equals("Фантом?")) {
+                описаниеЗвука = true;
+            }else  if (action.equals("Я тоже надеюсь на это"))  {
+                опасныйПоходВКонец = true;
+            }else if (action.equals("Только лестница!")){
+                лестнрца = true;
+            }else if (action.equals("Что,что,что???")){
+                наЧердаке = true;
             }
         }
 
